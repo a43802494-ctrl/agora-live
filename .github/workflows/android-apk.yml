@@ -122,10 +122,3 @@ jobs:
           if-no-files-found: error
           retention-days: 2
 
-      - name: Upload APK part 09
-        uses: actions/upload-artifact@v4
-        with:
-          name: agora-apk-part-09
-          path: ${{ runner.temp }}/agora-apk-part-09.part
-          if-no-files-found: error
-          retention-days: 2
