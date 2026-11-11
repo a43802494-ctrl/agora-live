@@ -39,10 +39,93 @@ jobs:
           # Build-only placeholder: replace with a real Agora App ID before any live RTC/IM testing.
           ./gradlew --no-daemon --stacktrace -PAGORA_APP_ID=00000000000000000000000000000000 :app:assembleDebug
 
-      - name: Upload APK
+      - name: Prepare APK transfer parts
+        shell: bash
+        run: |
+          APK="$(find Android/app/build/outputs/apk/debug -maxdepth 1 -name '*.apk' -print -quit)"
+          test -n "$APK"
+          cp "$APK" "$RUNNER_TEMP/AgoraLive-debug.apk"
+          split -b 20m -d --additional-suffix=.part "$RUNNER_TEMP/AgoraLive-debug.apk" "$RUNNER_TEMP/agora-apk-part-"
+          printf '%s\n' "AgoraLive-debug.apk" > "$RUNNER_TEMP/APK_NAME.txt"
+
+      - name: Upload APK part 00
         uses: actions/upload-artifact@v4
         with:
-          name: agora-live-debug-apk
-          path: Android/app/build/outputs/apk/debug/*.apk
+          name: agora-apk-part-00
+          path: |
+            ${{ runner.temp }}/agora-apk-part-00.part
+            ${{ runner.temp }}/APK_NAME.txt
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 2
+
+      - name: Upload APK part 01
+        uses: actions/upload-artifact@v4
+        with:
+          name: agora-apk-part-01
+          path: ${{ runner.temp }}/agora-apk-part-01.part
+          if-no-files-found: error
+          retention-days: 2
+
+      - name: Upload APK part 02
+        uses: actions/upload-artifact@v4
+        with:
+          name: agora-apk-part-02
+          path: ${{ runner.temp }}/agora-apk-part-02.part
+          if-no-files-found: error
+          retention-days: 2
+
+      - name: Upload APK part 03
+        uses: actions/upload-artifact@v4
+        with:
+          name: agora-apk-part-03
+          path: ${{ runner.temp }}/agora-apk-part-03.part
+          if-no-files-found: error
+          retention-days: 2
+
+      - name: Upload APK part 04
+        uses: actions/upload-artifact@v4
+        with:
+          name: agora-apk-part-04
+          path: ${{ runner.temp }}/agora-apk-part-04.part
+          if-no-files-found: error
+          retention-days: 2
+
+      - name: Upload APK part 05
+        uses: actions/upload-artifact@v4
+        with:
+          name: agora-apk-part-05
+          path: ${{ runner.temp }}/agora-apk-part-05.part
+          if-no-files-found: error
+          retention-days: 2
+
+      - name: Upload APK part 06
+        uses: actions/upload-artifact@v4
+        with:
+          name: agora-apk-part-06
+          path: ${{ runner.temp }}/agora-apk-part-06.part
+          if-no-files-found: error
+          retention-days: 2
+
+      - name: Upload APK part 07
+        uses: actions/upload-artifact@v4
+        with:
+          name: agora-apk-part-07
+          path: ${{ runner.temp }}/agora-apk-part-07.part
+          if-no-files-found: error
+          retention-days: 2
+
+      - name: Upload APK part 08
+        uses: actions/upload-artifact@v4
+        with:
+          name: agora-apk-part-08
+          path: ${{ runner.temp }}/agora-apk-part-08.part
+          if-no-files-found: error
+          retention-days: 2
+
+      - name: Upload APK part 09
+        uses: actions/upload-artifact@v4
+        with:
+          name: agora-apk-part-09
+          path: ${{ runner.temp }}/agora-apk-part-09.part
+          if-no-files-found: error
+          retention-days: 2
