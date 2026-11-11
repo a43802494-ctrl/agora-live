@@ -36,7 +36,8 @@ jobs:
         working-directory: Android
         run: |
           chmod +x ./gradlew
-          ./gradlew --no-daemon --stacktrace :app:assembleDebug
+          # Build-only placeholder: replace with a real Agora App ID before any live RTC/IM testing.
+          ./gradlew --no-daemon --stacktrace -PAGORA_APP_ID=00000000000000000000000000000000 :app:assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
